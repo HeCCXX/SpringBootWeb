@@ -137,4 +137,19 @@ public class HelloController {
 
         return "redirect:/emps";
     }
+    
+    /**
+    * @Author HCX 
+    * @Description //TODO 删除员工信息
+    * @Date 19:47 2019-12-04
+    * @param id
+    * @return java.lang.String
+    * @exception       
+    **/
+    @DeleteMapping("/emp/{id}")
+    public String deleteEmp(@PathVariable("id") Integer id){
+        employeeDao.delete(id);
+
+        return "redirect:/emps";
+    }
 }

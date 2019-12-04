@@ -73,15 +73,20 @@
 									<th th:text="${#dates.format(emp.birth,'yyyy-MM-dd')}"></th>
 									<th>
 										<a class="btn btn-sm btn-primary" th:href="@{/emp/}+${emp.id}">编辑</a>
-										<button class="btn btn-sm btn-danger">删除</button>
+										<button th:attr="delete_url=@{/emp/}+${emp.id}" class="btn btn-sm btn-danger deleteBtn">删除</button>
 									</th>
 								</tr>
 							</tbody>
 						</table>
 					</div>
 				</main>
+				<form id="deleteEmpForm" method="post">
+					<input type="hidden" name="_method" value="delete">
+				</form>
 			</div>
 		</div>
+
+
 
 		<!-- Bootstrap core JavaScript
     ================================================== -->
@@ -95,7 +100,12 @@
 		<script>
 			feather.replace()
 		</script>
-
+		<script>
+			$(".deleteBtn").click(function () {
+				$("#deleteEmpForm").attr("action",$(this).attr("delete_url")).submit();
+				return false;
+			});
+		</script>
 		<!-- Graphs -->
 		<script type="text/javascript" src="asserts/js/Chart.min.js"></script>
 		<script>
