@@ -37,6 +37,17 @@ public class HelloController {
         return "hcx";
     }
 
+    /**
+    * @Author HCX
+    * @Description //TODO 用户登录到主界面
+    * @Date 16:47 2019-12-04
+    * @param username
+* @param password
+* @param map
+* @param session
+    * @return java.lang.String
+    * @exception
+    **/
     @PostMapping("/user/login")
     public String toList(@RequestParam("username") String username, @RequestParam("password") String password, Map<String,Object> map, HttpSession session){
         if (!StringUtils.isEmpty(username) && "123456".equals(password)){
@@ -48,6 +59,14 @@ public class HelloController {
         }
     }
 
+    /**
+    * @Author HCX
+    * @Description //TODO 展示雇员信息页面
+    * @Date 16:47 2019-12-04
+    * @param model
+    * @return java.lang.String
+    * @exception
+    **/
     @GetMapping("/emps")
     public String showEmps(Model model){
         Collection<Employee> emps = employeeDao.getAll();
@@ -56,15 +75,66 @@ public class HelloController {
         return "practice/list";
     }
 
-//    @PostMapping("/addUser")
-//    public String addEmps(){
-//        return "practice/add";
-//    }
-
+    /**
+    ** @param model
+    * @return java.lang.String
+    * @exception
+    **/
     @GetMapping("/emp")
-    public String addEmps(Model model){
+    public String toAddPage(Model model){
         Collection<Department> departments = departmentDao.getDepartments();
         model.addAttribute("depts",departments);
         return  "practice/add";
+    }
+
+    /**
+    * @Author HCX
+    * @Description //TODO 保存一个雇员，并重定向到展示页面
+    * @Date 16:46 2019-12-04
+    * @param employee
+    * @return java.lang.String
+    * @exception
+    **/
+    @PostMapping("/emp")
+    public String addEmp(Employee employee){
+        employeeDao.save(employee);
+
+        return "redirect:/emps";
+    }
+
+    /**
+    * @Author HCX
+    * @Description //TODO 转到编辑页面，并将选择数据回显到界面
+    * @Date 16:47 2019-12-04
+    * @param id
+    * @param model
+    * @return java.lang.String
+    * @exception
+    **/
+    @GetMapping("/emp/{id}")
+    public String toEditPage(@PathVariable("id") Integer id,Model model){
+
+        Employee employee = employeeDao.get(id);
+        Collection<Department> departments = departmentDao.getDepartments();
+        model.addAttribute("depts",departments);
+        model.addAttribute("emp",employee);
+
+        return "practice/add";
+
+    }
+
+    /**
+    * @Author HCX 
+    * @Description //TODO 修改雇员信息
+    * @Date 17:01 2019-12-04
+    * @param employee
+    * @return java.lang.String
+    * @exception       
+    **/
+    @PutMapping("/emp")
+    public String updateEmp(Employee employee){
+        employeeDao.save(employee);
+
+        return "redirect:/emps";
     }
 }
