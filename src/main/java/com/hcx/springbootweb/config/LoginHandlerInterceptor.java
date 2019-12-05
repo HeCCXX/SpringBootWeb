@@ -17,16 +17,17 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginHandlerInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        Object user = httpServletRequest.getSession().getAttribute("loginUser");
-        if (user == null){
-            //未登录，返回登录界面
-            httpServletRequest.setAttribute("msg","没有权限请先登录");
-            httpServletRequest.getRequestDispatcher("/index.html").forward(httpServletRequest,httpServletResponse);
-            return false;
-        }else{
-            //登陆中
-            return true;
-        }
+//        Object user = httpServletRequest.getSession().getAttribute("loginUser");
+//        if (user == null){
+//            //未登录，返回登录界面
+//            httpServletRequest.setAttribute("msg","没有权限请先登录");
+//            httpServletRequest.getRequestDispatcher("/index.html").forward(httpServletRequest,httpServletResponse);
+//            return false;
+//        }else{
+//            //登陆中
+//            return true;
+//        }
+        return true;
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.hcx.springbootweb.dao.DepartmentDao;
 import com.hcx.springbootweb.dao.EmployeeDao;
 import com.hcx.springbootweb.entities.Department;
 import com.hcx.springbootweb.entities.Employee;
+import com.hcx.springbootweb.exception.UserNotExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,9 +32,11 @@ public class HelloController {
     @Autowired
     DepartmentDao departmentDao;
 
-    @ResponseBody
     @RequestMapping("/hcx")
-    public String hello(){
+    public String hello(@RequestParam("user") String user){
+        if (user.equals("hcx")){
+            throw new UserNotExistException();
+        }
         return "hcx";
     }
 
